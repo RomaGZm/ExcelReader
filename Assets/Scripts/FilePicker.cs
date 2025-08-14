@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NativeFilePickerNamespace;
 using System.IO;
 using TMPro;
 
 public class FilePicker : MonoBehaviour
 {
-    public ExcelReaderExample excelReaderExample;
+ /*   public ExcelReaderExample excelReaderExample;
     private string fileType;
     private string selPath;
     [SerializeField] private TMP_Text ifResult;
@@ -57,5 +56,5 @@ public class FilePicker : MonoBehaviour
     public void OnBtnExitClick()
     {
         Application.Quit();
-    }
+    }*/
 }
