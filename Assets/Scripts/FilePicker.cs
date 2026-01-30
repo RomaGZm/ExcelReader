@@ -1,11 +1,9 @@
-using SFB;
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using WebGLFileUploader;
 
 public class FilePicker : MonoBehaviour
 {
@@ -17,10 +15,58 @@ public class FilePicker : MonoBehaviour
     public TMP_Text debug_text;
     void Start()
     {
-#if !UNITY_WEBGL
+#if UNITY_WEBGL
+     Debug.Log("WebGLFileUploadManager.getOS: " + WebGLFileUploadManager.getOS);
+            Debug.Log("WebGLFileUploadManager.isMOBILE: " + WebGLFileUploadManager.IsMOBILE);
+            Debug.Log("WebGLFileUploadManager.getUserAgent: " + WebGLFileUploadManager.GetUserAgent);
+
+            WebGLFileUploadManager.SetDebug(true);
+            if ( 
+#if UNITY_WEBGL && !UNITY_EDITOR
+                    WebGLFileUploadManager.IsMOBILE 
+#else
+            Application.isMobilePlatform
+#endif
+            ) {
+                WebGLFileUploadManager.Show (false);
+                WebGLFileUploadManager.SetDescription("Select xlsx files (.xlsx)");
+
+            }else{
+                WebGLFileUploadManager.Show (true);
+                WebGLFileUploadManager.SetDescription("Drop image files (Select xlsx files (.xlsx)) here");
+            }
+
+            WebGLFileUploadManager.SetAllowedFileName("\\.(xlsx)$");
+            WebGLFileUploadManager.SetImageShrinkingSize(1280 ,960);
+            WebGLFileUploadManager.onFileUploaded += OnFileUploaded;
+#else
         fileType = NativeFilePicker.ConvertExtensionToFileType("xlsx");
         Debug.Log("pdf's MIME/UTI is: " + fileType);
 #endif
+    }
+    private void OnFileUploaded(UploadedFileInfo[] result)
+    {
+        if (result.Length == 0)
+        {
+            Debug.Log("File upload Error!");
+        }
+        else
+        {
+            Debug.Log("File upload success! (result.Length: " + result.Length + ")");
+        }
+
+        foreach (UploadedFileInfo file in result)
+        {
+            if (file.isSuccess)
+            {
+                Debug.Log("file.filePath: " + file.filePath + " exists:" + File.Exists(file.filePath));
+
+                selPath = file.filePath;
+                excelReaderExample.LoadAndDisplayTopPlayers(selPath);
+
+                break;
+            }
+        }
     }
 
     public void OnBtnOpenFileClick()
@@ -29,11 +75,8 @@ public class FilePicker : MonoBehaviour
 
         try
         {
-            // Open file with filter
-            var extensions = new[] {
-             new ExtensionFilter("xlsx Files", "xlsx")};
-
-            selPath = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true)[0];
+            WebGLFileUploadManager.PopupDialog(null, "Select xlsx file (.xlsx)");
+            excelReaderExample.LoadAndDisplayTopPlayers(selPath);
         }
         catch (Exception ex)
         {
