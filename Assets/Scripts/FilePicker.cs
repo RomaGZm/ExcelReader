@@ -1,4 +1,5 @@
 using SFB;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +14,10 @@ public class FilePicker : MonoBehaviour
     private string selPath;
     [SerializeField] private TMP_Text ifResult;
     public PanelHellp panelHellp;
+    public TMP_Text debug_text;
     void Start()
     {
-#if !PLATFORM_WEBGL
+#if !UNITY_WEBGL
         fileType = NativeFilePicker.ConvertExtensionToFileType("xlsx");
         Debug.Log("pdf's MIME/UTI is: " + fileType);
 #endif
@@ -23,13 +25,22 @@ public class FilePicker : MonoBehaviour
 
     public void OnBtnOpenFileClick()
     {
-#if PLATFORM_WEBGL
+#if UNITY_WEBGL
 
-        // Open file with filter
-        var extensions = new[] {
-        new ExtensionFilter("xlsx Files", "xlsx")};
+        try
+        {
+            // Open file with filter
+            var extensions = new[] {
+             new ExtensionFilter("xlsx Files", "xlsx")};
 
-        selPath = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true)[0]; 
+            selPath = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true)[0];
+        }
+        catch (Exception ex)
+        {
+            debug_text.text = ex.Message;          // Short error message
+            Debug.LogError(ex);               // Full info in Unity Console
+        }
+
 
 #else
         NativeFilePicker.PickFile((path) =>
