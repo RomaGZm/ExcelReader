@@ -20,23 +20,8 @@ public class FilePickerWebGL : MonoBehaviour
             Debug.Log("WebGLFileUploadManager.getUserAgent: " + WebGLFileUploadManager.GetUserAgent);
 
             WebGLFileUploadManager.SetDebug(true);
-            if ( 
-#if UNITY_WEBGL && !UNITY_EDITOR
-                    WebGLFileUploadManager.IsMOBILE 
-#else
-            Application.isMobilePlatform
-#endif
-            ) {
-                WebGLFileUploadManager.Show (false);
-                WebGLFileUploadManager.SetDescription("Select xlsx files (.xlsx)");
-
-            }else{
-                WebGLFileUploadManager.Show (true);
-                WebGLFileUploadManager.SetDescription("Drop image files (Select xlsx files (.xlsx)) here");
-            }
 
             WebGLFileUploadManager.SetAllowedFileName("\\.(xlsx)$");
-            WebGLFileUploadManager.SetImageShrinkingSize(1280 ,960);
             WebGLFileUploadManager.onFileUploaded += OnFileUploaded;
 
 
