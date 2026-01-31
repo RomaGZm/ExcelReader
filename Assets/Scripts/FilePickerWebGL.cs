@@ -35,6 +35,7 @@ public class FilePickerWebGL : MonoBehaviour
     {
         try
         {
+            debug_text.text += "UploadFile" + "\n";
             UploadFile(gameObject.name, "OnFileUpload", ".xlsx", false);
            
         }
@@ -56,8 +57,8 @@ public class FilePickerWebGL : MonoBehaviour
             yield break;
         }
         fileBytes = request.downloadHandler.data;
-       // debug_text.text = loader.text;
-        excelReaderExample.LoadWWWAndDisplayTopPlayers(fileBytes);
+        debug_text.text = url.ToString();
+        //excelReaderExample.LoadWWWAndDisplayTopPlayers(fileBytes);
     }
     public void OnBtnUpdateClick()
     {
