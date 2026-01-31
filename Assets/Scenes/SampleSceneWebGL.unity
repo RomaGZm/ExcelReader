@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 324663663}
   - component: {fileID: 324663662}
   - component: {fileID: 324663661}
+  - component: {fileID: 324663664}
   m_Layer: 5
   m_Name: BtnOpen
   m_TagString: Untagged
@@ -1136,19 +1137,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 324663662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1094201106}
-        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
-        m_MethodName: OnBtnOpenFileClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &324663662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1176,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324663659}
   m_CullTransparentMesh: 1
+--- !u!114 &324663664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324663659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f7f185e5b9fdf4eab0ba699b21adf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excelReaderExample: {fileID: 1094201105}
+  output: {fileID: 0}
+  tMP_Text: {fileID: 1264874176}
 --- !u!1 &342468670
 GameObject:
   m_ObjectHideFlags: 0
