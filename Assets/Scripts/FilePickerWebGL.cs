@@ -53,12 +53,12 @@ public class FilePickerWebGL : MonoBehaviour
 
         if (request.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Download failed: " + request.error);
+            debug_text.text += "Download failed: " + request.error + "\n";
             yield break;
         }
         fileBytes = request.downloadHandler.data;
         debug_text.text = url.ToString();
-        //excelReaderExample.LoadWWWAndDisplayTopPlayers(fileBytes);
+        excelReaderExample.LoadWWWAndDisplayTopPlayers(fileBytes);
     }
     public void OnBtnUpdateClick()
     {
