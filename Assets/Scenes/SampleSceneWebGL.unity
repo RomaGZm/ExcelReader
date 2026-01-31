@@ -204,8 +204,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FilePicker, Assembly-CSharp
+      - m_Target: {fileID: 1094201106}
+        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
         m_MethodName: OnBtnHelpClick
         m_Mode: 1
         m_Arguments:
@@ -337,8 +337,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FilePicker, Assembly-CSharp
+      - m_Target: {fileID: 1094201106}
+        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
         m_MethodName: OnBtnUpdateClick
         m_Mode: 1
         m_Arguments:
@@ -1137,8 +1137,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FilePicker, Assembly-CSharp
+      - m_Target: {fileID: 1094201106}
+        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
         m_MethodName: OnBtnOpenFileClick
         m_Mode: 1
         m_Arguments:
@@ -2471,8 +2471,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FilePicker, Assembly-CSharp
+      - m_Target: {fileID: 1094201106}
+        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
         m_MethodName: OnBtnCopyClick
         m_Mode: 1
         m_Arguments:
@@ -3335,6 +3335,7 @@ MonoBehaviour:
   ifResult: {fileID: 1958219236}
   panelHellp: {fileID: 1215239835}
   debug_text: {fileID: 1264874176}
+  fileBytes: 
 --- !u!1 &1094635600
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,8 +3773,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FilePicker, Assembly-CSharp
+      - m_Target: {fileID: 1094201106}
+        m_TargetAssemblyTypeName: FilePickerWebGL, Assembly-CSharp
         m_MethodName: OnBtnExitClick
         m_Mode: 1
         m_Arguments:
