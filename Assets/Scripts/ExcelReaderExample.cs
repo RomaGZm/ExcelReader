@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using ExcelDataReader;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using ExcelDataReader;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using TMPro;
-using System.Text;
 using System.Linq;
+using System.Text;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ExcelReaderExample : MonoBehaviour
 {
@@ -137,6 +137,97 @@ public class ExcelReaderExample : MonoBehaviour
             }
            
              
+        }
+
+    }
+    public void LoadWWWAndDisplayTopPlayers(byte[] fileBytes)
+    {
+ 
+        // Required for ExcelDataReader on some platforms
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        using (var stream = new MemoryStream(fileBytes))
+        using (var reader = ExcelReaderFactory.CreateReader(stream))
+        {
+            var config = new ExcelDataSetConfiguration()
+            {
+                ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+                {
+                    UseHeaderRow = true // First row as header
+                }
+            };
+
+            var dataSet = reader.AsDataSet(config);
+            var table = dataSet.Tables[0];
+            textRes.text = "";
+
+            // Индексы нужных колонок
+            int nameCol = table.Columns.IndexOf("Name");
+            int percentCol = table.Columns.IndexOf("Goal Percentage (Hunt)");
+
+            if (nameCol == -1 || percentCol == -1)
+            {
+                Debug.LogError("Не найдены нужные колонки: 'Name' или 'Goal Percentage'");
+                return;
+            }
+
+            // Парсим игроков
+            var players = new List<Player>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                string name = row[nameCol].ToString();
+                string percentRaw = row[percentCol].ToString().Trim();
+
+                float percent = 0;
+
+                if (percentRaw.Contains("%"))
+                {
+                    percentRaw = percentRaw.Replace("%", "").Trim();
+                    float.TryParse(percentRaw, out percent);
+                }
+                else
+                {
+                    float.TryParse(percentRaw, out percent);
+                    percent *= 100f;
+                }
+
+                players.Add(new Player { name = name, goalPercent = percent });
+            }
+
+            // Сортируем
+            int top = int.Parse(iFBestPlayers.text);
+            int worst = int.Parse(iFBadPlayers.text);
+            var top5 = players.OrderByDescending(p => p.goalPercent).Take(top).ToList();
+            var worst10 = players.OrderBy(p => p.goalPercent).Take(worst).ToList();
+
+            if (toggleBestPlayers.isOn)
+            {
+                textRes.text += iFBestPlayersDiscription.text + '\n' + '\n';
+                Debug.Log("🔝 Лучшие игроки по Goal Percentage:");
+                foreach (var p in top5)
+                {
+                    string res = $"{p.name} - {Mathf.FloorToInt(p.goalPercent)}%";
+                    Debug.Log(res);
+                    textRes.text += res + '\n';
+                }
+
+            }
+            if (toggleBadPlayers.isOn)
+            {
+                if (toggleBestPlayers.isOn)
+                    textRes.text += '\n';
+                textRes.text += iFBadPlayersDiscription.text + '\n' + '\n';
+                Debug.Log("🔻 Худшие игроки по Goal Percentage:");
+                foreach (var p in worst10)
+                {
+                    string res = $"{p.name} - {Mathf.FloorToInt(p.goalPercent)}%";
+                    Debug.Log(res);
+                    textRes.text += res + '\n';
+                }
+            }
+
+
         }
     }
 }
